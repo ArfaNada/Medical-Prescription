@@ -12,4 +12,6 @@ Built a robust deep learning solution to recognize and digitize handwritten text
 
 ## Files
 
-* `doctor-s-prescription (1).ipynb`: The complete project notebook detailing data preprocessing, model training (CNN, LSTM, AlexNet), TFLite quantization, and the final performance audit.
+* `doctor-s-prescription.ipynb`: The complete project notebook detailing data preprocessing, model training (CNN, LSTM, AlexNet), TFLite quantization, and the final performance audit.
+* `README.md`: Project documentation explaining the objective, methodology, tech stack, usage instructions, and results.
+* `.gitignore`: Specifies files and directories to be excluded from version control (e.g., checkpoints, virtual environments, cached files).
