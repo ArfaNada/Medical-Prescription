@@ -1,3 +1,4 @@
+# %% [code]
 """Train the CNN model from processed image folder structure created by `load_images.py`.
 
 Usage:
@@ -71,10 +72,21 @@ def main(args):
     model = create_model(input_shape=(args.size, args.size, 3), num_classes=num_classes)
     model.summary()
 
-    model.fit(train_gen, validation_data=val_gen, epochs=args.epochs)
+    history = model.fit(train_gen, validation_data=val_gen, epochs=args.epochs)
 
-    out = args.output
-    model.save(out, save_format='h5')
+    out = Path(args.output)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    model.save(str(out), save_format='h5')
+    # Save training history to a JSON next to the model for later inspection/plotting
+    try:
+        hist_path = out.with_suffix(out.suffix + '.history.json')
+        import json as _json
+        with open(hist_path, 'w') as _f:
+            _json.dump(history.history, _f)
+        print('Saved training history to', hist_path)
+    except Exception as e:
+        print('Failed to save training history:', e)
+
     print('Saved model to', out)
 
 
