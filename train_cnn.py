@@ -83,7 +83,14 @@ def main(args):
         import json as _json
         with open(hist_path, 'w') as _f:
             _json.dump(history.history, _f)
-        print('Saved training history to', hist_path)
+        # Also write a deterministic history file that notebooks and CI expect
+        alt_path = Path('/kaggle/working/prescription_classification_history.json')
+        try:
+            with open(alt_path, 'w') as _f2:
+                _json.dump(history.history, _f2)
+            print('Saved training history to', hist_path, 'and', alt_path)
+        except Exception:
+            print('Saved training history to', hist_path)
     except Exception as e:
         print('Failed to save training history:', e)
 
